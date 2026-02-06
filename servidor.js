@@ -78,6 +78,19 @@ app.delete("/alunos/", (req, res) => {
     }
 })
 
+//cadastro
+app.post("/alunos", (req, res) =>{
+    console.log(req.body)
+    const {nome} = req.body
+    if (!nome) {
+        return res.status(400).json({msg:"por gentileza digite o nome"})
+    }
+    const id=listarAlunos.length > 0 ? listarAlunos [listarAlunos.length -1].id +1 : 1
+    const aluno = {id, nome}
+    listarAlunos.push(aluno)
+    res.status(201).json({msg:"aluno cadastrado com sucesso!"})
+})
+
 app.listen(PORTA, () => {
     console.log(`servidor rodando!`)
 })
